@@ -1,7 +1,17 @@
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
-}
+pub mod game;
+
+pub mod math;
+pub mod geometry;
+
+pub mod rendering;
+
+
+#[macro_use]
+pub mod program;
+
+pub mod fps;
+
+pub mod controllers;
+pub mod input;
+
+pub use self::program::ProgramsCache;
