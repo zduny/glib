@@ -7,6 +7,7 @@ use crate::math::vector::Position3;
 use crate::math::*;
 
 pub struct FirstPersonController {
+    pub flying: bool,
     position: Position3,
     yaw: f32,
     pitch: f32,
@@ -16,6 +17,7 @@ pub struct FirstPersonController {
 impl FirstPersonController {
     pub fn new() -> FirstPersonController {
         FirstPersonController {
+            flying: true,
             position: pos3(0.0, 0.0, 0.0),
             yaw: 0.0,
             pitch: 0.0,
@@ -66,7 +68,11 @@ impl FirstPersonController {
     }
 
     pub fn change_position(&mut self, displacement: Displacement3) {
-        let transformed_displacement = Transform::rotation_y(self.yaw) * displacement;
+        let transformed_displacement = if self.flying {
+            Transform::rotation_y(self.yaw) * Transform::rotation_x(-self.pitch) * displacement
+        } else {
+            Transform::rotation_y(self.yaw) * displacement
+        };
 
         self.position = self.position + transformed_displacement;
         self.transform = None;
