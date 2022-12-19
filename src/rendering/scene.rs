@@ -10,7 +10,6 @@ pub struct Mesh<M: Material> {
     material: Rc<M>,
 }
 
-#[allow(dead_code)]
 impl<M: Material> Mesh<M> {
     pub fn new(geometry: Rc<GpuGeometry>, material: Rc<M>) -> Mesh<M> {
         Mesh { geometry, material }
